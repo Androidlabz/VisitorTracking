@@ -11,5 +11,5 @@ allprojects {
 	}
 	
 	dependencies {
-	        implementation 'com.github.androidlabz:VisitorTracking:1.0.4'
+	        implementation 'com.github.androidlabz:VisitorTracking:1.0.5'
 	}
