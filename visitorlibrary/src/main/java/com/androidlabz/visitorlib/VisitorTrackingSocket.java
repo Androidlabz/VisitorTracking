@@ -38,8 +38,10 @@ public class VisitorTrackingSocket {
     try {
       channel.join().receive("ok", envelope -> {
         Log.e("connected", envelope.toString());
+        mTrackEventsCallback.onJoinChannelSuccess(envelope);
       }).receive("ignore", envelope -> {
         Log.e("ignored", envelope.toString());
+        mTrackEventsCallback.onJoinChannelIgnored(envelope);
       });
       channel.on("recieve_comment", envelope -> {
         Log.e("recieved envelope", envelope.toString());
@@ -160,5 +162,9 @@ public class VisitorTrackingSocket {
     void onRecieveUserOnlineCount(Envelope envelope);
 
     void onRecieveUserOfflineCount(Envelope envelope);
+
+    void onJoinChannelSuccess(Envelope envelope);
+
+    void onJoinChannelIgnored(Envelope envelope);
   }
 }
