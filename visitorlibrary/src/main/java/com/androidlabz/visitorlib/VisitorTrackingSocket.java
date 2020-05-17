@@ -10,8 +10,15 @@ import org.phoenixframework.channels.Socket;
 
 public class VisitorTrackingSocket {
   private final String mAppId;
-  private final String mSocketUrl = "http://13.235.167.76:4005/socket/websocket";
-  private final String mChannelName = "visitor:100";
+  private static final String mSocketUrl = "http://13.235.167.76:4005/socket/websocket";
+  private static final String mChannelName = "visitor:100";
+  private static final String mPushCommentEvent = "push_comment";
+  private static final String mPushUserOnlineEvent = "push_user_online";
+  private static final String mPushUserOfflineEvent = "push_user_offline";
+  private static final String mReceiveUserOnlineEvent = "receive_user_online_count";
+  private static final String mReceiveUserOfflineEvent = "receive_user_offline_count";
+  private static final String mReceiveCommentEvent = "receive_comment";
+
   private Socket socket;
   private Channel channel;
   private TrackEventsCallback mTrackEventsCallback;
@@ -19,17 +26,20 @@ public class VisitorTrackingSocket {
   public VisitorTrackingSocket(
       String appId) {
     mAppId = appId;
-    initSocketConnection();
   }
 
-  private void initSocketConnection() {
-    try {
-      socket =
-          new Socket(mSocketUrl);
-      socket.connect();
-      initJoinChannel();
-    } catch (IOException e) {
-      e.printStackTrace();
+  public void initSocketConnection() {
+    if (socket == null || !socket.isConnected()) {
+      try {
+        socket =
+            new Socket(mSocketUrl);
+        socket.connect();
+        if (channel == null) {
+          initJoinChannel();
+        }
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
     }
   }
 
@@ -43,16 +53,13 @@ public class VisitorTrackingSocket {
         Log.e("ignored", envelope.toString());
         mTrackEventsCallback.onJoinChannelIgnored(envelope);
       });
-      channel.on("recieve_comment", envelope -> {
-        Log.e("recieved envelope", envelope.toString());
+      channel.on(mReceiveCommentEvent, envelope -> {
         mTrackEventsCallback.onReceiveComment(envelope);
       });
-      channel.on("receive_user_online_count", envelope -> {
-        Log.e("recieved envelope", envelope.toString());
+      channel.on(mReceiveUserOnlineEvent, envelope -> {
         mTrackEventsCallback.onRecieveUserOnlineCount(envelope);
       });
-      channel.on("receive_user_offline_count", envelope -> {
-        Log.e("recieved envelope", envelope.toString());
+      channel.on(mReceiveUserOfflineEvent, envelope -> {
         mTrackEventsCallback.onRecieveUserOfflineCount(envelope);
       });
     } catch (IOException e) {
@@ -73,7 +80,7 @@ public class VisitorTrackingSocket {
       if (channel != null) {
         try {
           Log.e("push", node.toString());
-          channel.push("push_comment", node);
+          channel.push(mPushCommentEvent, node);
         } catch (IOException e) {
           e.printStackTrace();
         }
@@ -81,7 +88,7 @@ public class VisitorTrackingSocket {
         initJoinChannel();
         try {
           Log.e("push", node.toString());
-          channel.push("push_comment", node);
+          channel.push(mPushCommentEvent, node);
         } catch (IOException e) {
           e.printStackTrace();
         }
@@ -98,7 +105,7 @@ public class VisitorTrackingSocket {
       if (channel != null) {
         try {
           Log.e("push", node.toString());
-          channel.push("push_user_online", node);
+          channel.push(mPushUserOnlineEvent, node);
         } catch (IOException e) {
           e.printStackTrace();
         }
@@ -106,7 +113,7 @@ public class VisitorTrackingSocket {
         initJoinChannel();
         try {
           Log.e("push", node.toString());
-          channel.push("push_user_online", node);
+          channel.push(mPushUserOnlineEvent, node);
         } catch (IOException e) {
           e.printStackTrace();
         }
@@ -123,7 +130,7 @@ public class VisitorTrackingSocket {
       if (channel != null) {
         try {
           Log.e("push", node.toString());
-          channel.push("push_user_offline", node);
+          channel.push(mPushUserOfflineEvent, node);
         } catch (IOException e) {
           e.printStackTrace();
         }
@@ -131,7 +138,7 @@ public class VisitorTrackingSocket {
         initJoinChannel();
         try {
           Log.e("push", node.toString());
-          channel.push("push_user_offline", node);
+          channel.push(mPushUserOfflineEvent, node);
         } catch (IOException e) {
           e.printStackTrace();
         }
