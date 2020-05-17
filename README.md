@@ -1,9 +1,15 @@
 # VisitorTracking
 Android app to track visitors count and show live comments
 
+Add the JitPack repository to your build file
 
-Add dependency
-
-dependencies {
-	        implementation 'com.github.tehcnominds:VisitorTracking:1.0.0'
+allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+	
+	dependencies {
+	        implementation 'com.github.Androidlabz:VisitorTracking:1.0.0'
 	}
