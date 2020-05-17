@@ -37,11 +37,11 @@ allprojects {
      }
 
     @Override public void onRecieveUserOnlineCount(Envelope envelope) {
-     //user online count will be recieved in this event payload as a integer
+      int visitorCount = envelope.getPayload().get("visitor_count").asInt();
      }
 
     @Override public void onRecieveUserOfflineCount(Envelope envelope) {
-     //user online count will be recieved in this event payload as a integer
+      int visitorCount = envelope.getPayload().get("visitor_count").asInt();
     }
 
     @Override public void onJoinChannelSuccess(Envelope envelope) {
