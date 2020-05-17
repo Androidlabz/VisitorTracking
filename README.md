@@ -51,7 +51,7 @@ allprojects {
 
     @Override public void onJoinChannelIgnored(Envelope envelope) {
      Channel is ignored 
-   }
+    }
 	  
 	  
 	     
