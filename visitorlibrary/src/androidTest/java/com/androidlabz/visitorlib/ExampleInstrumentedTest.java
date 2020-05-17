@@ -1,4 +1,4 @@
-package com.makeappz.visitorlib;
+package com.androidlabz.visitorlib;
 
 import android.content.Context;
 import androidx.test.platform.app.InstrumentationRegistry;

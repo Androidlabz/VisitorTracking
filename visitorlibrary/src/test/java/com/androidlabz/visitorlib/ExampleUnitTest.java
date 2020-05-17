@@ -1,4 +1,4 @@
-package com.makeappz.visitorlib;
+package com.androidlabz.visitorlib;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package com.makeappz.visitorlib;
+package com.androidlabz.visitorlib;
 
 import android.util.Log;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
