@@ -41,30 +41,21 @@ public class VisitorTrackingSocket {
       }).receive("ignore", envelope -> {
         Log.e("ignored", envelope.toString());
       });
+      channel.on("recieve_comment", envelope -> {
+        Log.e("recieved envelope", envelope.toString());
+        mTrackEventsCallback.onReceiveComment(envelope);
+      });
+      channel.on("receive_user_online_count", envelope -> {
+        Log.e("recieved envelope", envelope.toString());
+        mTrackEventsCallback.onRecieveUserOnlineCount(envelope);
+      });
+      channel.on("receive_user_offline_count", envelope -> {
+        Log.e("recieved envelope", envelope.toString());
+        mTrackEventsCallback.onRecieveUserOfflineCount(envelope);
+      });
     } catch (IOException e) {
       e.printStackTrace();
     }
-  }
-
-  public void onRecieveUserCountOnline() {
-    channel.on("receive_user_online_count", envelope -> {
-      Log.e("recieved envelope", envelope.toString());
-      mTrackEventsCallback.onRecieveUserOnlineCount(envelope);
-    });
-  }
-
-  public void onRecieveUserCountOffline() {
-    channel.on("receive_user_offline_count", envelope -> {
-      Log.e("recieved envelope", envelope.toString());
-      mTrackEventsCallback.onRecieveUserOfflineCount(envelope);
-    });
-  }
-
-  public void onRecieveComment() {
-    channel.on("recieve_comment", envelope -> {
-      Log.e("recieved envelope", envelope.toString());
-      mTrackEventsCallback.onReceiveComment(envelope);
-    });
   }
 
   public void pushComment(String userId, String userName, String comment) {
@@ -96,7 +87,7 @@ public class VisitorTrackingSocket {
     }
   }
 
-  private void pushUserOnline() {
+  public void pushUserOnline() {
     if (socket == null || !socket.isConnected()) {
       initSocketConnection();
     }
@@ -121,7 +112,7 @@ public class VisitorTrackingSocket {
     }
   }
 
-  private void pushUserOffline() {
+  public void pushUserOffline() {
     if (socket == null || !socket.isConnected()) {
       initSocketConnection();
     }
