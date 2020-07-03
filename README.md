@@ -50,7 +50,7 @@ allprojects {
     @Override public void onJoinChannelSuccess(Envelope envelope) {
     Channel is joined successfully
     
-     Call Method push user online to specify user is online
+     Call Method pushUserOnline to specify user is online
 	  
      mTrackingSocket.pushUserOnline();
     }
@@ -59,7 +59,7 @@ allprojects {
      Channel is ignored 
     }
     
-    Call Method push user is offline
+    Call MethodpushUserOffline to specify the user is offline
     
     @Override protected void onStop() {
     super.onStop();
