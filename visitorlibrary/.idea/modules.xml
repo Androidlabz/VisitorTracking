@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-765859360/VisitorTrackingLibrary.iml" filepath="$PROJECT_DIR$/.idea/modules/-765859360/VisitorTrackingLibrary.iml" group="VisitorTrackingLibrary" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/visitorlibrary.iml" filepath="$PROJECT_DIR$/.idea/modules/visitorlibrary.iml" group="VisitorTrackingLibrary/visitorlibrary" />
+    </modules>
+  </component>
+</project>
