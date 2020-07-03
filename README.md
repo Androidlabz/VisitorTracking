@@ -23,20 +23,22 @@ allprojects {
            mTrackingSocket=new VisitorTrackingSocket("VisitorTrack");
            mTrackingSocket.setTrackEventsCallback(this);
          }
+	       
 	 
 	 Register callback in your activity or fragment to implement callback methods
 	 
 	  mTrackingSocket.setTrackEventsCallback(this);
 	  
 	  @Override public void onReceiveComment(Envelope envelope) {
-      Comment will be recieved in this event payload
+        Comment will be recieved in this event payload
       
       String  userId = envelope.getPayload().get("id").asText();
       String userName = envelope.getPayload().get("name").asText();
       String recieveComment = envelope.getPayload().get("comment").asText();
    
      }
-
+     
+  
     @Override public void onRecieveUserOnlineCount(Envelope envelope) {
       int visitorCount = envelope.getPayload().get("visitor_count").asInt();
      }
@@ -47,11 +49,24 @@ allprojects {
 
     @Override public void onJoinChannelSuccess(Envelope envelope) {
     Channel is joined successfully
+    
+     Call Method push user online to specify user is online
+	  
+     mTrackingSocket.pushUserOnline();
     }
 
     @Override public void onJoinChannelIgnored(Envelope envelope) {
      Channel is ignored 
     }
+    
+    Call Method push user is offline
+    
+    @Override protected void onStop() {
+    super.onStop();
+    mTrackingSocket.pushUserOffline();
+  }
+  
+  
 	  
 	  
 	     
